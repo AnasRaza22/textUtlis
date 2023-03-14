@@ -41,7 +41,7 @@
       </div>
   
   <div class="container">
-    <form action='/analyze' method='GET'>
+    <form action='/analyze' method='POST'>{% csrf_token %}
       <div class="form-group">
         <label for="floatingTextarea">Enter your text here and lets TextUtils do the magic:</label>
         <textarea class="form-control" name="text" placeholder="Enter the text" rows=5 id="floatingTextarea"></textarea>

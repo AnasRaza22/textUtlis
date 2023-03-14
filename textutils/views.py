@@ -26,12 +26,12 @@ def Contact(request):
 def analyze(request):
     # print(request.GET.get('text','default')) #and we can put it in a variable
     # here we will get the text
-    djtext = request.GET.get('text','default')
-    removepunc=request.GET.get('removepunc','off')
-    fullcap=request.GET.get('fullcap','off')
-    newlineremover=request.GET.get('newlineremover','off')
-    spaceremover=request.GET.get('spaceremover','off')
-    charcount=request.GET.get('charcount','off')
+    djtext = request.POST.get('text','default')
+    removepunc=request.POST.get('removepunc','off')
+    fullcap=request.POST.get('fullcap','off')               #if we gave post method in 
+    newlineremover=request.POST.get('newlineremover','off') #form/action we have to give 
+    spaceremover=request.POST.get('spaceremover','off')     #all request 'post' otherwise
+    charcount=request.POST.get('charcount','off')           #it will give us else msg(lastbaala)
 
     if removepunc=='on':
         punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
@@ -52,9 +52,9 @@ def analyze(request):
     
     elif newlineremover=='on':
         analyzed=''
-        for char in djtext:
-            if char!='\n':
-                analyzed=analyzed+char
+        for char in djtext:     #we have to given both method to replace new line
+            if char!='\n' and char!='\r':  #bcoz when we execute the new line both are in our text
+                analyzed=analyzed+char    
         params={'purpose':"here you will not see any new line","analyzed_text":analyzed}
         return render(request,"analyze2.html",params)
     
