@@ -1,0 +1,2 @@
+here we will learn about urls and views and we have made our first django file.
+and we made this file because we want to know that how we can use another file in our django projects
