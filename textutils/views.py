@@ -41,41 +41,46 @@ def analyze(request):
                 analyzed=analyzed+char
                 
         params={"purpose":"Removing punctuations","analyzed_text":analyzed}
-        return render(request,'analyze2.html',params)
+        # return render(request,'analyze2.html',params)
+        djtext=analyzed
     
-    elif fullcap=='on':
+    if fullcap=='on':
         analyzed=''
         for char in djtext:
             analyzed=analyzed+char.upper()
         params={"purpose":"making all upper case",'analyzed_text':analyzed}
-        return render(request,'analyze2.html',params)
+        # return render(request,'analyze2.html',params)
+        djtext=analyzed
     
-    elif newlineremover=='on':
+    if newlineremover=='on':
         analyzed=''
         for char in djtext:     #we have to given both method to replace new line
-            if char!='\n' and char!='\r':  #bcoz when we execute the new line both are in our text
+            if char!='\n'and char!='\r':  #bcoz when we execute the new line both are in our text
                 analyzed=analyzed+char    
         params={'purpose':"here you will not see any new line","analyzed_text":analyzed}
-        return render(request,"analyze2.html",params)
+        # return render(request,"analyze2.html",params)
+        djtext=analyzed
     
-    elif spaceremover=='on':
+    if spaceremover=='on':
         analyzed=''
         for index,char in enumerate(djtext):
             if not(djtext[index]==' ' and djtext[index+1]==' '):
                 analyzed=analyzed+char
         params={"purpose":'removing space',"analyzed_text":analyzed}
-        return render(request,'analyze2.html',params)
+        # return render(request,'analyze2.html',params)
+        djtext=analyzed
     
-    elif charcount=='on':
+    if charcount=='on':
         count=0
         while len(djtext)>count:
             count+=1
 
         params={"purpose":"Count the characters","analyzed_text":count}
-        return render(request,'analyze2.html',params)
-            
-    else:
+        # return render(request,'analyze2.html',params)
+    if(charcount!='on' and spaceremover!='on' and newlineremover!='on' and fullcap!='on' and removepunc!='on'):
         return HttpResponse("Here is something Error")
+    return render(request,'analyze2.html',params)   
+    
 
 
 # def charcount(request):
